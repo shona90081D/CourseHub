@@ -1,0 +1,191 @@
+version: '3.8'
+
+services:
+  # MongoDB for User Service
+  mongodb-user:
+    image: mongo:7.0
+    container_name: ocp-mongodb-user
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_user_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: online_course_platform_users
+
+  # MongoDB for Course Service
+  mongodb-course:
+    image: mongo:7.0
+    container_name: ocp-mongodb-course
+    restart: always
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo_course_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: online_course_platform_courses
+
+  # MongoDB for Enrollment Service
+  mongodb-enrollment:
+    image: mongo:7.0
+    container_name: ocp-mongodb-enrollment
+    restart: always
+    ports:
+      - "27019:27017"
+    volumes:
+      - mongo_enrollment_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: online_course_platform_enrollments
+
+  # MongoDB for Progress Service
+  mongodb-progress:
+    image: mongo:7.0
+    container_name: ocp-mongodb-progress
+    restart: always
+    ports:
+      - "27020:27017"
+    volumes:
+      - mongo_progress_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: online_course_platform_progress
+
+  # MongoDB for Certificate Service
+  mongodb-certificate:
+    image: mongo:7.0
+    container_name: ocp-mongodb-certificate
+    restart: always
+    ports:
+      - "27021:27017"
+    volumes:
+      - mongo_certificate_data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: online_course_platform_certificates
+
+  # API Gateway
+  api-gateway:
+    build: ./api-gateway
+    container_name: ocp-api-gateway
+    restart: always
+    ports:
+      - "4000:4000"
+    environment:
+      PORT: 4000
+      NODE_ENV: development
+      USER_SERVICE_URL: http://user-service:5000
+      COURSE_SERVICE_URL: http://course-service:5001
+      ENROLLMENT_SERVICE_URL: http://enrollment-service:5002
+      PROGRESS_SERVICE_URL: http://progress-service:5003
+      CERTIFICATE_SERVICE_URL: http://certificate-service:5004
+      JWT_SECRET: your_jwt_secret_key_here
+    depends_on:
+      - mongodb-user
+      - mongodb-course
+      - mongodb-enrollment
+      - mongodb-progress
+      - mongodb-certificate
+
+  # User Service
+  user-service:
+    build: ./user-service
+    container_name: ocp-user-service
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      PORT: 5000
+      NODE_ENV: development
+      MONGODB_URI: mongodb://admin:password@mongodb-user:27017/online_course_platform_users?authSource=admin
+      JWT_SECRET: your_jwt_secret_key_here
+      JWT_EXPIRE: 7d
+    depends_on:
+      - mongodb-user
+
+  # Course Service
+  course-service:
+    build: ./course-service
+    container_name: ocp-course-service
+    restart: always
+    ports:
+      - "5001:5001"
+    environment:
+      PORT: 5001
+      NODE_ENV: development
+      MONGODB_URI: mongodb://admin:password@mongodb-course:27017/online_course_platform_courses?authSource=admin
+    depends_on:
+      - mongodb-course
+
+  # Enrollment Service
+  enrollment-service:
+    build: ./enrollment-service
+    container_name: ocp-enrollment-service
+    restart: always
+    ports:
+      - "5002:5002"
+    environment:
+      PORT: 5002
+      NODE_ENV: development
+      MONGODB_URI: mongodb://admin:password@mongodb-enrollment:27017/online_course_platform_enrollments?authSource=admin
+      JWT_SECRET: your_jwt_secret_key_here
+    depends_on:
+      - mongodb-enrollment
+
+  # Progress Service
+  progress-service:
+    build: ./progress-service
+    container_name: ocp-progress-service
+    restart: always
+    ports:
+      - "5003:5003"
+    environment:
+      PORT: 5003
+      NODE_ENV: development
+      MONGODB_URI: mongodb://admin:password@mongodb-progress:27017/online_course_platform_progress?authSource=admin
+      JWT_SECRET: your_jwt_secret_key_here
+    depends_on:
+      - mongodb-progress
+
+  # Certificate Service
+  certificate-service:
+    build: ./certificate-service
+    container_name: ocp-certificate-service
+    restart: always
+    ports:
+      - "5004:5004"
+    environment:
+      PORT: 5004
+      NODE_ENV: development
+      MONGODB_URI: mongodb://admin:password@mongodb-certificate:27017/online_course_platform_certificates?authSource=admin
+      JWT_SECRET: your_jwt_secret_key_here
+    depends_on:
+      - mongodb-certificate
+
+  # Frontend (Optional - uncomment to include)
+  # frontend:
+  #   build: ./frontend
+  #   container_name: ocp-frontend
+  #   restart: always
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - api-gateway
+
+volumes:
+  mongo_user_data:
+  mongo_course_data:
+  mongo_enrollment_data:
+  mongo_progress_data:
+  mongo_certificate_data:
+
+networks:
+  default:
+    name: online-course-platform-network
