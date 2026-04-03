@@ -1,0 +1,340 @@
+# Sample API Test Data
+
+## Test Users
+
+### Student User
+```json
+{
+  "name": "John Doe",
+  "email": "student@example.com",
+  "password": "password123",
+  "role": "student"
+}
+```
+
+### Instructor User
+```json
+{
+  "name": "Jane Smith",
+  "email": "instructor@example.com",
+  "password": "password123",
+  "role": "instructor"
+}
+```
+
+---
+
+## Sample Courses
+
+### Web Development Course
+```json
+{
+  "title": "Complete Web Development Bootcamp",
+  "description": "Learn HTML, CSS, JavaScript, and modern frameworks from scratch",
+  "instructor": "Jane Smith",
+  "instructorId": "instructor-id-here",
+  "category": "Web Development",
+  "level": "beginner",
+  "duration": 40,
+  "price": 49.99,
+  "modules": [
+    {
+      "title": "HTML Basics",
+      "description": "Learn HTML fundamentals",
+      "lessons": [
+        {
+          "title": "Introduction to HTML",
+          "videoUrl": "https://example.com/video1",
+          "duration": 30
+        },
+        {
+          "title": "HTML Elements",
+          "videoUrl": "https://example.com/video2",
+          "duration": 45
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Python Programming Course
+```json
+{
+  "title": "Python for Beginners",
+  "description": "Master Python programming from basic to advanced",
+  "instructor": "Jane Smith",
+  "instructorId": "instructor-id-here",
+  "category": "Programming",
+  "level": "intermediate",
+  "duration": 50,
+  "price": 39.99,
+  "modules": [
+    {
+      "title": "Python Basics",
+      "description": "Learn Python fundamentals",
+      "lessons": [
+        {
+          "title": "Introduction to Python",
+          "videoUrl": "https://example.com/video3",
+          "duration": 40
+        },
+        {
+          "title": "Variables and Data Types",
+          "videoUrl": "https://example.com/video4",
+          "duration": 50
+        }
+      ]
+    }
+  ]
+}
+```
+
+### React.js Mastery Course
+```json
+{
+  "title": "React.js Mastery",
+  "description": "Build modern web applications with React",
+  "instructor": "Jane Smith",
+  "instructorId": "instructor-id-here",
+  "category": "Web Development",
+  "level": "advanced",
+  "duration": 60,
+  "price": 79.99,
+  "modules": [
+    {
+      "title": "React Fundamentals",
+      "description": "Learn React basics",
+      "lessons": [
+        {
+          "title": "Introduction to React",
+          "videoUrl": "https://example.com/video5",
+          "duration": 35
+        }
+      ]
+    }
+  ]
+}
+```
+
+---
+
+## Test API Requests
+
+### 1. Register User (POST /users/register)
+```bash
+curl -X POST http://localhost:4000/users/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "password": "password123",
+    "role": "student"
+  }'
+```
+
+### 2. Login User (POST /users/login)
+```bash
+curl -X POST http://localhost:4000/users/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "john@example.com",
+    "password": "password123"
+  }'
+```
+
+### 3. Get All Courses (GET /courses)
+```bash
+curl -X GET http://localhost:4000/courses
+```
+
+### 4. Create Course (POST /courses)
+```bash
+curl -X POST http://localhost:4000/courses \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "New Course",
+    "description": "Course description",
+    "category": "Development",
+    "level": "beginner",
+    "duration": 40,
+    "price": 49.99,
+    "instructor": "Jane Smith",
+    "instructorId": "instructor-id"
+  }'
+```
+
+### 5. Get Course Details (GET /courses/:courseId)
+```bash
+curl -X GET http://localhost:4000/courses/course-id-here
+```
+
+### 6. Enroll in Course (POST /enrollments/enroll)
+```bash
+curl -X POST http://localhost:4000/enrollments/enroll \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "courseId": "course-id-here"
+  }'
+```
+
+### 7. Get User Enrollments (GET /enrollments/my-enrollments)
+```bash
+curl -X GET http://localhost:4000/enrollments/my-enrollments \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+### 8. Track Progress (POST /progress/track)
+```bash
+curl -X POST http://localhost:4000/progress/track \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "userId": "user-id",
+    "courseId": "course-id",
+    "lessonId": "lesson-id",
+    "lessonTitle": "Lesson Title",
+    "isCompleted": true
+  }'
+```
+
+### 9. Get User Progress (GET /progress/my-progress)
+```bash
+curl -X GET http://localhost:4000/progress/my-progress \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+### 10. Generate Certificate (POST /certificates/generate)
+```bash
+curl -X POST http://localhost:4000/certificates/generate \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "userId": "user-id",
+    "courseId": "course-id",
+    "courseName": "Course Name",
+    "studentName": "Student Name",
+    "instructorName": "Instructor Name",
+    "score": 95,
+    "skills": ["Skill1", "Skill2"]
+  }'
+```
+
+---
+
+## Postman Collection
+
+You can import this as a Postman collection:
+
+```json
+{
+  "info": {
+    "name": "Online Course Platform API",
+    "description": "Complete API tests for Online Course Platform"
+  },
+  "item": [
+    {
+      "name": "User Service",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:4000/users/register"
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "url": "http://localhost:4000/users/login"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+---
+
+## Expected Responses
+
+### Successful Registration
+```json
+{
+  "message": "User registered successfully",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "userId": "user-id-here"
+}
+```
+
+### Successful Login
+```json
+{
+  "message": "Login successful",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "userId": "user-id-here"
+}
+```
+
+### Get Courses Response
+```json
+[
+  {
+    "_id": "course-id-1",
+    "title": "Complete Web Development Bootcamp",
+    "description": "Learn HTML, CSS, JavaScript...",
+    "instructor": "Jane Smith",
+    "category": "Web Development",
+    "level": "beginner",
+    "duration": 40,
+    "price": 49.99,
+    "enrolledStudents": 150,
+    "rating": 4.8
+  }
+]
+```
+
+---
+
+## Testing Workflow
+
+1. **Register as Student** → Get auth token
+2. **Browse Courses** → GET /courses
+3. **View Course Details** → GET /courses/:id
+4. **Enroll in Course** → POST /enrollments/enroll
+5. **Track Progress** → POST /progress/track
+6. **View Progress** → GET /progress/my-progress
+7. **Generate Certificate** → POST /certificates/generate
+8. **View Certificates** → GET /certificates/my-certificates
+
+---
+
+## Database Queries (MongoDB)
+
+### View Users
+```javascript
+db.users.find()
+```
+
+### View Courses
+```javascript
+db.courses.find()
+```
+
+### View Enrollments
+```javascript
+db.enrollments.find()
+```
+
+### View Progress
+```javascript
+db.progress.find()
+```
+
+### View Certificates
+```javascript
+db.certificates.find()
+```
