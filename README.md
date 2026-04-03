@@ -387,7 +387,7 @@ online-course-platform/
 
 ---
 
-## 🎓 Key Features
+##  Key Features
 
 ### User Management
 - Register new users (students/instructors)
@@ -442,7 +442,7 @@ online-course-platform/
 
 ---
 
-## 📚 Technologies Used
+##  Technologies Used
 
 - **Frontend:** React 18, Vite, React Router, Axios
 - **Backend:** Node.js, Express.js
