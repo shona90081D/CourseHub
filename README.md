@@ -4,7 +4,7 @@
 
 > A comprehensive online course platform built with a microservices architecture, allowing users to learn new skills, enroll in courses, track progress, and earn certificates.
 
-## 📋 Table of Contents
+##  Table of Contents
 - [Project Overview](#project-overview)
 - [Architecture](#architecture)
 - [Services](#services)
@@ -16,7 +16,7 @@
 
 ---
 
-## 🎯 Project Overview
+##  Project Overview
 
 The Online Course Platform is a full-stack application designed with microservices architecture to provide a scalable, maintainable, and independent set of services for managing an online learning platform.
 
@@ -30,7 +30,7 @@ The Online Course Platform is a full-stack application designed with microservic
 
 ---
 
-## 🏗️ Architecture
+##  Architecture
 
 This project follows a **Microservices Architecture** with the following components:
 
@@ -63,7 +63,7 @@ This project follows a **Microservices Architecture** with the following compone
 
 ---
 
-## 🔧 Services
+##  Services
 
 ### 1. **API Gateway** (Port 4000)
 - Central entry point for all client requests
@@ -116,7 +116,7 @@ This project follows a **Microservices Architecture** with the following compone
 
 ---
 
-## 📦 Prerequisites
+##  Prerequisites
 
 - **Node.js** (v14 or higher)
 - **MongoDB** (v5.0 or higher)
@@ -125,7 +125,7 @@ This project follows a **Microservices Architecture** with the following compone
 
 ---
 
-## 📥 Installation
+##  Installation
 
 ### 1. Clone the repository
 ```bash
@@ -191,7 +191,7 @@ JWT_EXPIRE=7d
 
 ---
 
-## 🚀 Running the Project
+##  Running the Project
 
 ### Option 1: Local Development (Without Docker)
 
@@ -311,7 +311,7 @@ docker-compose down
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 online-course-platform/
@@ -420,7 +420,7 @@ online-course-platform/
 
 ---
 
-## 🔐 Security Features
+##  Security Features
 
 - JWT-based authentication
 - Password hashing with bcryptjs
@@ -430,7 +430,7 @@ online-course-platform/
 
 ---
 
-## 🛠️ Development Tips
+##  Development Tips
 
 1. **Keep services independent** - Each service should work independently
 2. **Use proper error handling** - Implement error middleware in each service
@@ -453,7 +453,7 @@ online-course-platform/
 
 ---
 
-## 🤝 Contributing
+##  Contributing
 
 1. Create a new branch for each feature
 2. Follow the project structure and conventions
@@ -463,19 +463,8 @@ online-course-platform/
 
 ---
 
-## 📝 Notes for Students
 
-- Each microservice is completely independent and should be worked on separately
-- Services communicate through HTTP/REST APIs via the API Gateway
-- MongoDB is used for persistent data storage
-- Always handle errors appropriately in your services
-- Use the API Gateway as the single entry point for frontend requests
-- Consider adding authentication middleware to protected routes
-- Implement proper logging and error tracking
-
----
-
-## 🆘 Troubleshooting
+##  Troubleshooting
 
 ### MongoDB Connection Failed
 - Ensure MongoDB is running: `mongod`
@@ -503,6 +492,6 @@ This project is created for educational purposes.
 
 ---
 
-## ✨ Happy Learning!
+##  Happy Learning!
 
 Start building your online course platform and expand your skills with microservices architecture!
